@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WebApplication3.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Emertimi
+        </th>
+        <th>
+            Pershkrimi
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Barcode)
+        </th>
+        <th>
+            Çmimi
+        </th>
+        <th>
+            Origjina
+        </th>
+        <th>
+            Stoku
+        </th>
+        <th>
+            Data e prodhimit
+        </th>
+        <th>
+            Afati i skadimit
+        </th>
+    </tr>
+    @foreach (WebApplication3.Models.Product item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.Barcode</td>
+            <td>@item.Price</td>
+            <td>@item.MadeIn</td>
+            <td>@item.Quantity.Amount @item.Quantity.Unit</td>
+            <td>@item.ProdDate.ToShortDateString()</td>
+            @if (item.DueUsageDate < DateTime.Now)
+            {
+                <td><p style="color:#800020;"><b>@item.DueUsageDate.Day / @item.DueUsageDate.Month / @item.DueUsageDate.Year</b></p></td>
+            }
+            else
+            {
+                <td>@item.DueUsageDate.Day / @item.DueUsageDate.Month / @item.DueUsageDate.Year</td>
+            }
+        </tr>
+    }
+
+</table>
